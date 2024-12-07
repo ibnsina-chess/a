@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Dark Knights Ibn Sina - Chess Club</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="https://i.ibb.co/Vwt7cPq/the-dark-knights-ibns-sina-chess-club-logo-1.png" type="image/x-icon">
+</head>
+<body>
+    <nav>
+        <img src="https://i.ibb.co/Vwt7cPq/the-dark-knights-ibns-sina-chess-club-logo-1.png" alt="" class="logo">
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul>
+            <li><a href="index-admin.html">home</a></li>
+            <li><a href="/members-admin.html">members</a></li>
+         
+        </ul>
+    </nav>
+
+    <div class="main">
+        <h1 class="greeting-p">Hi, welcome <br> <span>Elyaakoubi Ahmed</span></h1>
+    </div>
+   
+   <style>
+ 
+    .greeting-p{
+        text-align: start;
+    }
+   </style>
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector("nav ul");
+            navLinks.classList.toggle("show");
+        }
+    </script>
+</body>
+</html>
