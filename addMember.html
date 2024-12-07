@@ -18,8 +18,8 @@
             <span></span>
         </div>
         <ul>
-            <li><a href="index-admin.html">home</a></li>
-            <li><a href="/members-admin.html">members</a></li>
+            <li><a href="index.html">home</a></li>
+            <li><a href="/members.html">members</a></li>
     
         </ul>
     </nav>
@@ -147,7 +147,7 @@ const memberRef = database.ref('members/');
                 );
                 alert('Member registered successfully!');
                 form.reset();
-            window.location.href = "members-admin.html";
+            window.location.href = "members.html";
 
             } catch (error) {
                 console.error("Error saving data: ", error);
