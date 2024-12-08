@@ -115,44 +115,52 @@
 
 
 <script>
+
+
 const membersListDiv = document.getElementById("members-list");
 
-  
-
+// Firebase Configuration
 const firebaseConfig = {
-apiKey: "AIzaSyCd9XbhKz-AYvVJtLCi2hVDBvyYsSGB89w",
-authDomain: "chess-3596b.firebaseapp.com",
-databaseURL: "https://chess-3596b-default-rtdb.firebaseio.com",
-projectId: "chess-3596b",
-storageBucket: "chess-3596b.firebasestorage.app",
-messagingSenderId: "628293480183",
-appId: "1:628293480183:web:ecd5f317c728cd1233edf2",
-measurementId: "G-11H7GE4LT7"
+    apiKey: "AIzaSyCd9XbhKz-AYvVJtLCi2hVDBvyYsSGB89w",
+    authDomain: "chess-3596b.firebaseapp.com",
+    databaseURL: "https://chess-3596b-default-rtdb.firebaseio.com",
+    projectId: "chess-3596b",
+    storageBucket: "chess-3596b.firebasestorage.app",
+    messagingSenderId: "628293480183",
+    appId: "1:628293480183:web:ecd5f317c728cd1233edf2",
+    measurementId: "G-11H7GE4LT7"
 };
 
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
+// Reference to the "members" database
 const memberRef = database.ref('members/');
 
+// Fetch members from Firebase
 memberRef.once('value', (snapshot) => {
-const data = snapshot.val(); 
-console.log(data);
+    const data = snapshot.val(); 
+    console.log(data);
 
-for(const member in data ) {
-    const label = document.createElement("label");
-    label.textContent = member;
-    
-    
-    //console.log( "1 " +  member.name , "2 "+ member , "3 "+ data[member] , "4 " +  data.member)
-    membersListDiv.appendChild(label);
+    // Dynamically create labels for each member
+    for(const member in data) {
+        const label = document.createElement("label");
+        label.textContent = member;
+        label.className = "clickable-label"; // Add a class for identification
+        
+        // Add a click event listener immediately after creation
+        label.addEventListener('click', () => {
+            window.location.href = "member.html?id=" + label.textContent;
+       
+            //     console.log(`Label clicked: ${label.textContent}`);
+        });
 
-}
+        membersListDiv.appendChild(label);
+    }
+});
 
-
-})
 
 </script>
-
 </body>
 </html>
