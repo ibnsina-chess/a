@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Chess Puzzle</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f9;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .puzzle-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .puzzle-container img {
+      max-width: 100%;
+      height: auto;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .puzzle-info {
+      margin-top: 15px;
+      text-align: left;
+      font-size: 16px;
+    }
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Random Chess Puzzle</h1>
+    <div class="puzzle-container">
+      <div id="puzzle-image">
+        <p>Loading puzzle...</p>
+      </div>
+      <div class="puzzle-info" id="puzzle-info"></div>
+      <button id="fetch-puzzle">Get Another Puzzle</button>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = "https://api.chess.com/pub/puzzle/random";
+
+    async function fetchPuzzle() {
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error("Failed to fetch puzzle");
+        const data = await response.json();
+        displayPuzzle(data);
+      } catch (error) {
+        document.getElementById("puzzle-image").innerHTML = `<p>Error: ${error.message}</p>`;
+      }
+    }
+
+    function displayPuzzle(puzzle) {
+      const imageContainer = document.getElementById("puzzle-image");
+      const infoContainer = document.getElementById("puzzle-info");
+
+      imageContainer.innerHTML = `<img src="${puzzle.image}" alt="Chess Puzzle">`;
+      infoContainer.innerHTML = `
+        <p><strong>Title:</strong> ${puzzle.title || "N/A"}</p>
+        <p><strong>Publish Date:</strong> ${new Date(puzzle.publish_time * 1000).toLocaleDateString()}</p>
+        <p><a href="${puzzle.url}" target="_blank">View Full Puzzle</a></p>
+      `;
+    }
+
+    // Attach event listener to the button
+    document.getElementById("fetch-puzzle").addEventListener("click", fetchPuzzle);
+
+    // Fetch and display a puzzle on page load
+    fetchPuzzle();
+  </script>
+</body>
+</html>

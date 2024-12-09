@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess.com Stats Viewer</title>
+  <style>
+    *{
+        font-family: 'Courier New', Courier, monospace;
+    }
+    body {
+        height: 100vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+      margin: 20px;
+      background-color: #fff;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 10px 10px black ;
+      border: solid 1px black;
+     
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    th:hover, td:hover{
+      padding: 10px;
+      text-align: left;
+      background-color: black;
+      color: white;
+    }
+    th {
+      background-color: #f8f8f8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Chess Stats Viewer</h1>
+    <p>Fetching stats for: <strong>abdelhakim-sahifa</strong></p>
+    <div id="stats-container">
+      <p>Loading...</p>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = "https://api.chess.com/pub/player/abdelhakim-sahifa/stats";
+
+    async function fetchChessStats() {
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error("Failed to fetch data");
+        const data = await response.json();
+        displayStats(data);
+      } catch (error) {
+        document.getElementById("stats-container").innerHTML = `<p>Error: ${error.message}</p>`;
+      }
+    }
+
+    function displayStats(data) {
+      const container = document.getElementById("stats-container");
+      container.innerHTML = "";
+
+      const modes = ["chess_daily", "chess_rapid", "chess_bullet", "chess_blitz"];
+      const table = document.createElement("table");
+
+      // Create table header
+      const thead = document.createElement("thead");
+      thead.innerHTML = `
+        <tr>
+          <th>Mode</th>
+          <th>Rating</th>
+          <th>Wins</th>
+          <th>Losses</th>
+          <th>Draws</th>
+          <th>Last Updated</th>
+        </tr>
+      `;
+      table.appendChild(thead);
+
+      // Create table body
+      const tbody = document.createElement("tbody");
+      modes.forEach(mode => {
+        if (data[mode]) {
+          const lastUpdate = new Date(data[mode].last.date * 1000).toLocaleDateString();
+          const { rating } = data[mode].last;
+          const { win, loss, draw } = data[mode].record;
+
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${mode.replace("chess_", "").toUpperCase()}</td>
+            <td>${rating}</td>
+            <td>${win}</td>
+            <td>${loss}</td>
+            <td>${draw}</td>
+            <td>${lastUpdate}</td>
+          `;
+          tbody.appendChild(row);
+        }
+      });
+      table.appendChild(tbody);
+
+      container.appendChild(table);
+    }
+
+    // Fetch and display stats on load
+    fetchChessStats();
+  </script>
+</body>
+</html>
