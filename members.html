@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Dark Knights Ibn Sina - Chess Club</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="https://i.ibb.co/Vwt7cPq/the-dark-knights-ibns-sina-chess-club-logo-1.png" type="image/x-icon">
+    <link rel="shortcut icon" href="https://i.ibb.co/1nxPTWV/the-dark-knights-ibns-sina-chess-club-logo-1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
@@ -139,7 +139,7 @@ const database = firebase.database();
 const memberRef = database.ref('members/');
 
 // Fetch members from Firebase
-memberRef.once('value', (snapshot) => {
+memberRef.on('value', (snapshot) => {
     const data = snapshot.val(); 
     console.log(data);
 

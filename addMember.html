@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Dark Knights Ibn Sina - Chess Club</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="https://i.ibb.co/Vwt7cPq/the-dark-knights-ibns-sina-chess-club-logo-1.png" type="image/x-icon">
+    <link rel="shortcut icon" href="https://i.ibb.co/1nxPTWV/the-dark-knights-ibns-sina-chess-club-logo-1.png" type="image/x-icon">
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
@@ -32,14 +32,28 @@
         <input type="text" id="username" name="username" placeholder="Enter your Chess.com username" required>
 
         <label for="schoolClass">School Class</label>
-        <input type="text" id="schoolClass" name="schoolClass" placeholder="e.g., Grade 8A" required>
+        <!--
+        <input type="text" id="schoolClass" name="schoolClass" placeholder="e.g., TCSF-1 , " required>
+        -->
+        
+        <select id="schoolClass" name="schoolClass" required>
+            <option value="">Select a school Class</option>
+            <option value="2BACPC">2BACPC</option>
+            <option value="2BACSVT">2BACSVT</option>
+            <option value="1BACSEF-1">1BACSEF-1</option>
+            <option value="1BACSEF-2">1BACSEF-2</option>
+            <option value="TCSF-1">TCSF-1</option>
+            <option value="TCSF-2">TCSF-2</option>
+            <option value="other">OTHER</option>
+
+        </select>
 
         <label for="role">Role</label>
         <select id="role" name="role" required>
             <option value="">Select a role</option>
-            <option value="player">Player</option>
+            <option value="member">Member</option>
             <option value="coach">Coach</option>
-            <option value="organizer">Organizer</option>
+            <option value="member-organizer">Member - Organizer</option>
         </select>
 
         <button type="submit">Register</button>
@@ -60,20 +74,26 @@
         padding: 10px;
     }
 
+    select {
+        padding: 10px;
+
+    }
+
     button{
         margin-top: 10px;
         padding: 10px;
-        color: black;
         font-weight: 600;
-        background-color: white;
         border : solid 1px black ; 
         transition: .3s ;
-
-    }
-    button:hover{
         background-color: black;
         color: white;
+        cursor: pointer;
+      
+    }
+    button:hover{
+        background-color: white;
         transition: .3s ;
+        color: black;
     }
    </style>
     <script>
@@ -103,9 +123,9 @@
 
 const memberRef = database.ref('members/');
  numberOfMembers = ''
-  memberRef.once('value', (snapshot) => {
+  memberRef.on('value', (snapshot) => {
     const data = snapshot.val(); 
-    numberOfMembers = Object.keys(data).length + 1
+    numberOfMembers = Object.keys(data).length 
   })
   
 
