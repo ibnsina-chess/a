@@ -25,7 +25,7 @@ a-main/
 
 1. **Download or Clone the Repository**: 
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/ibnsina-chess/a.git
    cd adminChessClubWebsite/a-main
    ```
 
