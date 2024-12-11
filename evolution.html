@@ -58,6 +58,28 @@
       font-size: 16px;
     }
 
+    /* Styling for the r, g, and n classes */
+.r {
+    color: red;
+}
+
+.g {
+    color: green;
+}
+
+.n {
+    color: gray;
+}
+
+/* Styling for the font-awesome icons */
+.fa-caret-up {
+    color: green;
+}
+
+.fa-caret-down {
+    color: red;
+}
+
     @media (max-width: 768px) {
       
         
@@ -81,8 +103,8 @@
             <li><a href="evolution.html">Evolution</a></li>
         </ul>
     </nav>
-    <h1 >Chess Classification</h1>
-    <h3 id="lastUpdate" style="text-align: center;">Evolution OF the Members</h3>
+    <h1 >Evolution OF the Members</h1>
+    <h3 id="lastUpdate" style="text-align: center;"></h3>
     <p class="loading">Loading data...</p>
     <div id="tablesContainer"></div>
 
@@ -233,43 +255,76 @@ onValue(memberRef, async (snapshot) => {
                 const evolutionText = `${evolutionSign}${player.evolution}`;
 
                 const row = document.createElement('tr');
-              
-                if(rank === 1) {
-                    row.innerHTML = `
-                    <td><i class="fas fa-medal golden-medal F"></i>${player.name}</td>
-                    <td>${player.rating}</td>
-                    <td>${evolutionText}</td>
+                if (rank === 1) {
+    if (evolutionText.indexOf('-') !== -1) {
+        row.innerHTML = `
+            <td><i class="fas fa-medal golden-medal F"></i>${player.name}</td>
+            <td>${player.rating}<i class="fa fa-caret-down"></i></td>
+            <td class="r">${evolutionText}</td>`;
+    } else if (evolutionText === "0") {
+        row.innerHTML = `
+            <td><i class="fas fa-medal golden-medal F"></i>${player.name}</td>
+            <td>${player.rating}</i></td>
+            <td class="n">${evolutionText}</td>`;
+    } else {
+        row.innerHTML = `
+            <td><i class="fas fa-medal golden-medal F"></i>${player.name}</td>
+            <td>${player.rating}<i class="fa fa-caret-up"></i></td>
+            <td class="g">${evolutionText}</td>`;
+    }
+} else if (rank === 2) {
+    if (evolutionText.indexOf('-') !== -1) {
+        row.innerHTML = `
+            <td><i class="fas fa-medal golden-medal S"></i>${player.name}</td>
+            <td>${player.rating}<i class="fa fa-caret-down"></i></td>
+            <td class="r">${evolutionText}</td>`;
+    } else if (evolutionText === "0") {
+        row.innerHTML = `
+            <td><i class="fas fa-medal golden-medal S"></i>${player.name}</td>
+            <td>${player.rating}</i></td>
+            <td class="n">${evolutionText}</td>`;
+    } else {
+        row.innerHTML = `
+            <td><i class="fas fa-medal golden-medal S"></i>${player.name}</td>
+            <td>${player.rating}<i class="fa fa-caret-up"></i></td>
+            <td class="g">${evolutionText}</td>`;
+    }
+} else if (rank === 3) {
+    if (evolutionText.indexOf('-') !== -1) {
+        row.innerHTML = `
+            <td><i class="fas fa-medal golden-medal T"></i>${player.name}</td>
+            <td>${player.rating}<i class="fa fa-caret-down"></i></td>
+            <td class="r">${evolutionText}</td>`;
+    } else if (evolutionText === "0") {
+        row.innerHTML = `
+            <td><i class="fas fa-medal golden-medal T"></i>${player.name}</td>
+            <td>${player.rating}</i></td>
+            <td class="n">${evolutionText}</td>`;
+    } else {
+        row.innerHTML = `
+            <td><i class="fas fa-medal golden-medal T"></i>${player.name}</td>
+            <td>${player.rating}<i class="fa fa-caret-up"></i></td>
+            <td class="g">${evolutionText}</td>`;
+    }
+} else {
+    if (evolutionText.indexOf('-') !== -1) {
+        row.innerHTML = `
+            <td>${player.name}</td>
+            <td>${player.rating}<i class="fa fa-caret-down"></i></td>
+            <td class="r">${evolutionText}</td>`;
+    } else if (evolutionText === "0") {
+        row.innerHTML = `
+            <td>${player.name}</td>
+            <td>${player.rating}</i></td>
+            <td class="n">${evolutionText}</td>`;
+    } else {
+        row.innerHTML = `
+            <td>${player.name}</td>
+            <td>${player.rating}<i class="fa fa-caret-up"></i></td>
+            <td class="g">${evolutionText}</td>`;
+    }
+}
 
-                `;
-                }
-                else if(rank == 2){
-                    row.innerHTML = `
-                    <td><i class="fas fa-medal golden-medal S"></i>${player.name}</td>
-                    <td>${player.rating}</td>
-                    <td>${evolutionText}</td>
-
-                `;
-
-                }
-
-                else if(rank == 3){ 
-                    row.innerHTML = `
-                    <td><i class="fas fa-medal golden-medal T"></i>${player.name}</td>
-                    <td>${player.rating}</td>
-                    <td>${evolutionText}</td>
-
-                `;
-
-
-                }
-                else{
-                    row.innerHTML = `
-                    <td>${player.name}</td>
-                    <td>${player.rating}</td>
-                    <td>${evolutionText}</td>
-
-                `;
-                }
                 
                 tbody.appendChild(row);
             });
