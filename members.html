@@ -27,13 +27,14 @@
             
         </ul>
     </nav>
+   
+    <button id="add"><i class="fas fa-plus"></i>add member</button>                
+    <h3>members </h3>
 
     <div class="members-div">
 
         <div id="members-list">
             <div class="flex-div">
-                <h3>members </h3>
-                <button id="add"><i class="fas fa-plus"></i></button>                
             </div>
          
 
@@ -56,20 +57,121 @@
         });
     </script>
 <style> 
+#add{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    margin: 10px 0;
+    font-weight: 600;
+    font-size: 18px;
+    gap: 10px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all .3s ;
+
+}
+
+#add:hover{
+    background-color: black;
+    color: white;
+    transition: all .3s ;
+    
+
+}
+
+
+
+#add i{
+    border-radius: 100px;
+        color: black;
+        border : solid 1px black; 
+        padding: 10px;
+    
+        font-size: 16px;
+    transition: all .3s ;
+        
+
+}
+
+#add:hover i{
+    color: white;
+    border:1px solid white;
+    
+}
+    .choseDiv{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+   
+        border-radius: 20px;
+            gap: 10px;
+        margin-bottom: 20px;
+    }
+    .fa-edit , .fa-user-circle {
+        border-radius: 100px;
+        color: black;
+        border : solid 1px black; 
+        padding: 10px;
+        
+        font-size: 16px;
+        transition: all.3s;
+       
+    }
+    .fa-edit:hover , .fa-user-circle:hover{
+        color: white;
+        transition: all.3s;
+
+        background-color: black;
+        border: solid 1px black;
+    }
+
+    .clickable-label{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid black;
+        border-radius:10px;
+        
+    }
+
+    .clickable-label:hover   {
+        background-color: white !important;
+        color: black !important;
+        transition: .3s !important;
+        border-radius:10px;
+    }
 
     #members-list{
         display: flex;
         flex-direction: column;
         align-items: start;
-        justify-content: center;
-        width: 90vw;
-        border-radius: 20px;
-        border: solid 1px black;
+
         padding: 20px;
+        gap: 5px;
+        width: 80vw; /* Set the width of the div */
+        height: 55vw; /* Set the height of the div */
+        padding: 10px; /* Optional: Add padding inside the div */
+        overflow-y: scroll; /* Enable vertical scrolling */
+        overflow-x: hidden; 
+        overflow: auto; /* Hides both scrollbars and disables scrolling */
+        scrollbar-width: none; /
+
+
+        
+    }
+    #members-list::-webkit-scrollbar{
+        display: none;
     }
 
-    #members-list h3{
+   h3{
         font-size: 40px;
+        width: 80vw;
+
     }
     #members-list label{
         width: 90%;
@@ -95,23 +197,14 @@
         width: 100%;
     }
 
-    #add{
-        border: solid 1px black;
-        
-        border-radius: 10px;
-        background-color: white;
-        transition: .3s ;
-        padding: 10px;
-        height: max-content;
-        font-size: 19px;
-        
-    
+    @media (max-width: 768px) {
+
+        #members-list{
+        height: 120vw;
+        }
+
     }
-    #add:hover{
-        background-color: black;
-        color: white;
-        transition: .3s ;
-    }
+ 
 </style>
 
 
@@ -147,15 +240,28 @@ memberRef.on('value', (snapshot) => {
     // Dynamically create labels for each member
     for(const member in data) {
         const label = document.createElement("label");
+
         label.textContent = member;
         label.className = "clickable-label"; // Add a class for identification
-        
-        // Add a click event listener immediately after creation
-        label.addEventListener('click', () => {
-            window.location.href = "member.html?id=" + label.textContent;
-       
-            //     console.log(`Label clicked: ${label.textContent}`);
+        const editBtn = document.createElement("i");
+        editBtn.className = "fas fa-edit";
+        editBtn.addEventListener('click', () => {
+            window.location.href = "editMember.html?id=" + label.textContent;
+            //     console.log(`Edit button clicked: ${label.textContent}`);
         });
+        const showBtn = document.createElement("i");
+        showBtn.className = "fas fa-user-circle";
+        showBtn.addEventListener('click', () => {
+            window.location.href = "member.html?id=" + label.textContent;
+            //     console.log(`Show button clicked: ${label.textContent}`);
+        });
+        // Add a click event listener immediately after creation
+       const shoseDiv = document.createElement("div");
+       shoseDiv.appendChild(showBtn);
+       shoseDiv.appendChild(editBtn);
+       shoseDiv.className = "choseDiv" 
+       label.appendChild(shoseDiv);
+       
 
         membersListDiv.appendChild(label);
     }

@@ -159,7 +159,7 @@ const memberRef = database.ref('members/');
                     "username": username,
                     "schoolClass": schoolClass,
                     "role": role,
-                    "id" : "",
+                    "id" : numberOfMembers.toString().padStart(4, '0'),
                     "membership" : "https://i.ibb.co/BGN35zM/empty-membership-card-2.png",
                     "Statue" : "good" ,
                     //"timestamp": firebase.firestore.FieldValue.serverTimestamp()
